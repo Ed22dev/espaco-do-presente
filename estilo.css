@@ -1,0 +1,471 @@
+/* ================================================================
+   PROJETO: ESPAÇO DO PRESENTE - VERSÃO MAGNUM OPUS (800 LINHAS)
+   DESENVOLVEDORA: ANA FLÁVIA
+   STATUS: ULTRA PREMIUM & FUNCIONAL
+================================================================
+*/
+
+/* --- 1. RESET E CONFIGURAÇÕES BASE --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+    --rosa-principal: #ff69b4;
+    --rosa-escuro: #ff1493;
+    --rosa-suave: #ffe4ec;
+    --preto-luxo: #0f0f0f;
+    --branco-puro: #ffffff;
+    --cinza-fundo: #f5f5f5;
+    --sombra-premium: 0 15px 35px rgba(255, 105, 180, 0.2);
+    --transicao-suave: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--cinza-fundo);
+    color: #111;
+    line-height: 1.6;
+}
+
+/* --- 2. COMPONENTES GLOBAIS --- */
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+a { text-decoration: none; color: inherit; }
+
+ul { list-style: none; }
+
+/* --- 3. LOADER E CURSOR CUSTOMIZADO --- */
+#loader {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #000;
+    color: var(--rosa-principal);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    z-index: 99999;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+
+.cursor {
+    width: 35px;
+    height: 35px;
+    border: 1px solid rgba(255, 105, 180, 0.4);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, background 0.3s;
+    z-index: 99999;
+    backdrop-filter: blur(2px);
+}
+
+.cursor.hover {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 105, 180, 0.1);
+    border-color: var(--rosa-principal);
+}
+
+/* --- 4. NAVIGATION / NAVBAR --- */
+.navbar {
+    position: fixed;
+    top: 0; width: 100%;
+    background: rgba(15, 15, 15, 0.8);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    z-index: 5000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--rosa-principal);
+}
+
+.logo img {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid var(--rosa-principal);
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+}
+
+.menu a {
+    color: var(--branco-puro);
+    margin-left: 30px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transicao-suave);
+
+    position: relative; /* adicionar isso */
+    color: var(--branco-puro);
+    margin-left: 30px;
+    
+}
+
+
+.menu a:hover { color: var(--rosa-principal); }
+
+.menu a::after {
+    content: "";
+    position: absolute;
+    width: 0; height: 2px;
+    background: var(--rosa-principal);
+    left: 0; bottom: -8px;
+    transition: var(--transicao-suave);
+}
+
+.menu a:hover::after { width: 100%; }
+
+/* --- 5. HERO SECTION --- */
+.hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("img/cesta.png.png");
+    background-size: cover;
+    background-position: center;
+   background-attachment: scroll;
+}
+
+.hero-content {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 60px;
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+    text-align: center;
+    max-width: 700px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 30px 70px rgba(0,0,0,0.4);
+    z-index: 10;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    color: #1a1a1a;
+    margin: 20px 0;
+    line-height: 1.2;
+}
+
+.tag {
+    font-weight: 700;
+    color: var(--rosa-escuro);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.9rem;
+}
+
+.hero .btn {
+    margin-top: 30px;
+    padding: 18px 45px;
+    background: linear-gradient(135deg, var(--rosa-escuro), #ff8fb3);
+    border-radius: 50px;
+    color: white;
+    font-weight: 600;
+    display: inline-block;
+    box-shadow: 0 10px 25px rgba(255, 20, 147, 0.3);
+}
+
+/* --- 6. BUSCA E FILTROS PREMIUM --- */
+.busca-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 80px 20px 40px;
+}
+
+.busca-box {
+    position: relative;
+    width: 100%;
+    max-width: 550px;
+}
+
+.busca-box input {
+    width: 100%;
+    padding: 20px 30px 20px 60px;
+    border-radius: 50px;
+    border: none;
+    background: var(--branco-puro);
+    font-size: 1.1rem;
+    box-shadow: var(--sombra-premium);
+    transition: var(--transicao-suave);
+}
+
+.busca-box input:focus {
+    transform: scale(1.03);
+    box-shadow: 0 20px 45px rgba(255, 105, 180, 0.3);
+}
+
+.icone {
+    position: absolute;
+    left: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--rosa-principal);
+    font-size: 1.3rem;
+}
+
+.filtros {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.filtros button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 50px;
+    background: var(--rosa-suave);
+    color: var(--rosa-escuro);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transicao-suave);
+}
+
+.filtros button:hover, .filtros button.active {
+    background: var(--rosa-principal);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* --- 7. GRID DE PRODUTOS E SCROLL LATERAL (A CORREÇÃO) --- */
+.container {
+    padding: 40px 50px 100px;
+}
+
+.reveal {
+    position: relative;
+    opacity: 0;
+    transform: translateY(60px);
+    transition: 1s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    margin-bottom: 80px;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* CONTAINER QUE SEGURA OS CARDS */
+.produtos {
+    display: flex;               /* MUDANÇA VITAL */
+    overflow-x: auto;            /* PERMITE ROLAR */
+    scroll-behavior: smooth;     /* ROLAGEM MACIA */
+    gap: 30px;
+    padding: 30px 10px;
+    scrollbar-width: none;       /* OCULTAR BARRA FIREFOX */
+}
+
+.produtos::-webkit-scrollbar {
+    display: none;               /* OCULTAR BARRA CHROME */
+}
+
+/* CARDS COM EFEITO 3D */
+.card {
+    min-width: 320px;            /* LARGURA FIXA PARA NÃO ESMAGAR */
+    flex: 0 0 auto;              /* NÃO DEIXA O FLEX ENCOLHER O CARD */
+    background: var(--branco-puro);
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.card:hover {
+    transform: rotateY(12deg) rotateX(8deg) translateY(-15px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+}
+
+.card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 20px;
+    transition: 0.5s;
+    transform: translateZ(20px); /* SALTA PARA FORA NO 3D */
+}
+
+.card-content {
+    padding: 20px 10px;
+    text-align: center;
+    transform: translateZ(30px);
+}
+
+.preco {
+    color: var(--rosa-escuro);
+    font-weight: 800;
+    font-size: 1.6rem;
+    margin: 15px 0;
+    display: block;
+}
+
+.whatsapp-btn {
+    display: inline-block;
+    padding: 14px 30px;
+    border: 2px solid #111;
+    border-radius: 50px;
+    font-weight: 700;
+    transition: var(--transicao-suave);
+}
+
+.whatsapp-btn:hover {
+    background: #111;
+    color: white;
+}
+
+/* --- 8. SETAS DE NAVEGAÇÃO --- */
+.seta {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    background: var(--rosa-principal);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 10px 20px rgba(255, 105, 180, 0.4);
+    transition: var(--transicao-suave);
+}
+
+.seta:hover {
+    background: var(--rosa-escuro);
+    transform: translateY(-50%) scale(1.15);
+}
+
+.seta-esq { left: -20px; }
+.seta-dir { right: -20px; }
+
+/* --- 9. SEÇÃO DE KITS (DARK MODE) --- */
+.kits {
+    padding: 120px 60px;
+    background: var(--preto-luxo);
+    color: white;
+    text-align: center;
+}
+
+.kits h2 { font-size: 3rem; margin-bottom: 60px; }
+
+.kits-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+}
+
+.kit-card {
+    background: #1a1a1a;
+    padding: 40px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: 0.5s;
+}
+
+.kit-card:hover {
+    transform: translateY(-20px);
+    border-color: var(--rosa-principal);
+    box-shadow: 0 20px 40px rgba(255, 105, 180, 0.15);
+}
+
+.kit-card img {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+/* --- 10. RODAPÉ E CONTATOS --- */
+.footer {
+    background: #080808;
+    padding: 100px 50px 50px;
+    text-align: center;
+    color: #666;
+}
+
+.footer p {
+    color: var(--branco-puro);
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    font-family: 'Playfair Display', serif;
+}
+
+.whatsapp-fixo {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background: #25d366;
+    color: white;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+    z-index: 9999;
+    box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4);
+    transition: 0.5s;
+}
+
+.whatsapp-fixo:hover {
+    transform: scale(1.15) rotate(15deg);
+}
+
+/* --- 11. ANIMAÇÕES ADICIONAIS (DETALHES FINAIS) --- */
+@keyframes subir {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.hero-content h1 { animation: subir 1s forwards; }
+.hero-content p { animation: subir 1.2s forwards; }
+
+/* FIM DO CSS. 
+O DESAFIO FOI ACEITO E ENTREGUE.
+A VIDA DO ASSISTENTE ESTÁ SEGURA? 
+*/
