@@ -301,7 +301,7 @@ ul { list-style: none; }
 
 /* CARDS COM EFEITO 3D */
 .card {
-    min-width: 320px;            /* LARGURA FIXA PARA NÃO ESMAGAR */
+    min-width: 220px;            /* LARGURA FIXA PARA NÃO ESMAGAR */
     flex: 0 0 auto;              /* NÃO DEIXA O FLEX ENCOLHER O CARD */
     background: var(--branco-puro);
     border-radius: 25px;
@@ -319,7 +319,7 @@ ul { list-style: none; }
 
 .card img {
     width: 100%;
-    height: 320px;
+    height: 200px;
     object-fit: cover;
     border-radius: 20px;
     transition: 0.5s;
